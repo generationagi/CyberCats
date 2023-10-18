@@ -2,4 +2,4 @@
 
 
 
-joinb test
+join test
