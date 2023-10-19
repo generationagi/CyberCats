@@ -8,7 +8,7 @@ pygame.init()
 screen=pygame.display.set_mode([800,600])
 
 #Giving a name to the app as it runs
-pygmae.display.set_caption("CyberCat 2077")
+pygame.display.set_caption("CyberCat 2077")
 
 #Locating the Background image from a temporary picture folder *will change*
 BG = pygame.image.load("/TempBGpic/cheese_planet.jpg")
@@ -19,5 +19,18 @@ def draw():
     pygame.display.update()
 
 
+# the app running loop 
+running = True
+while running:
 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+# Background color behind BG picture
+    screen.fill((0,0,139))
+
+    draw()
+
+
+pygame.quit()
 
