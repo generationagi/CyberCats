@@ -1,4 +1,4 @@
-# hello 
+
 #Importing and initialising the pygame library
 
 import pygame
@@ -11,7 +11,7 @@ screen=pygame.display.set_mode([800,600])
 pygame.display.set_caption("CyberCat 2077")
 
 #Locating the Background image from a temporary picture folder *will change*
-BG = pygame.image.load("/TempBGpic/cheese_planet.jpg")
+BG = pygame.image.load("pictures/cheese_planet.jpg")
 
 # Making the background start from y0 andd x0 so it fills the screen and updating the display so we see the background
 def draw():
