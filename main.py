@@ -34,15 +34,15 @@ world = World(world_data)
 run = True
 while run:
     
-    screen.blit(bg_img, (0, 0))
+        screen.blit(bg_img, (0, 0))
     
-    world.draw()
+        world.draw()
 
-for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-        run = False
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        run = False
 
-pygame.display.update()
+        pygame.display.update()
         
   
 
