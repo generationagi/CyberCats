@@ -4,7 +4,7 @@
 import pygame
 pygame.init()
 
-#Test commit by Mayerlin
+#Test commit by Mayerlin 
 #Setting a resolution
 screen_width = 800
 screen_height = 800
