@@ -1,4 +1,4 @@
-
+from Collision import collision
 #Importing and initialising the pygame library
 
 import pygame
