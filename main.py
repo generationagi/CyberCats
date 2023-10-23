@@ -12,8 +12,10 @@ screen_height = 800
 pygame.display.set_caption("CyberCat")
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+BG = pygame.image.load('pictures/bg_img.png')
+
 #Locating the Background image from a temporary picture folder *will change*
-pygame.display.set_captiion('Cyber Cats')
+pygame.display.set_caption('Cyber Cats')
 
 #define game variable
 tile_size = 40
@@ -22,15 +24,19 @@ tile_size = 40
 
 
 
+
+
+
 # the app running loop 
-world = World(world_data)
+
+#world = World(world_data)
 
 run = True
 while run:
     
-        screen.blit(bg_img, (0, 0))
+        screen.blit(BG, (0, 0))
     
-        world.draw()
+        #world.draw()
 
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -41,4 +47,5 @@ while run:
   
 
 pygame.quit()
+
 
