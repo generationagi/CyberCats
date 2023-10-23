@@ -8,7 +8,7 @@ pygame.init()
 screen=pygame.display.set_mode([800,600])
 
 #Giving a name to the app as it runs
-pygame.display.set_caption("CyberCat 2077")
+pygame.display.set_caption("CyberCat")
 
 #Locating the Background image from a temporary picture folder *will change*
 BG = pygame.image.load("pictures/cheese_planet.jpg")
