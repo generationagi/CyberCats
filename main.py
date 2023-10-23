@@ -22,12 +22,6 @@ tile_size = 40
 
 
 
-
-
-
-
-
-
 # the app running loop 
 world = World(world_data)
 
