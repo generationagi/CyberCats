@@ -5,32 +5,46 @@ import pygame
 pygame.init()
 
 #Setting a resolution
-screen=pygame.display.set_mode([800,600])
+screen_width = 800
+screen_height = 800
 
 #Giving a name to the app as it runs
 pygame.display.set_caption("CyberCat")
+screen = pygame.display.set_mode((screen_width, screen_height))
 
 #Locating the Background image from a temporary picture folder *will change*
-BG = pygame.image.load("pictures/cheese_planet.jpg")
+pygame.display.set_captiion('Cyber Cats')
 
-# Making the background start from y0 andd x0 so it fills the screen and updating the display so we see the background
-def draw():
-    screen.blit(BG, (0, 0))
-    pygame.display.update()
+#define game variable
+tile_size = 40
+
+
+
+
+
+
+
+
+
 
 
 # the app running loop 
-running = True
-while running:
+world = World(world_data)
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-# Background color behind BG picture
-    screen.fill((0,0,139))
+run = True
+while run:
+    
+    screen.blit(bg_img, (0, 0))
+    
+    world.draw()
 
-    draw()
+for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+        run = False
 
+pygame.display.update()
+        
+  
 
 pygame.quit()
 
