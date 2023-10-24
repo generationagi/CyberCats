@@ -2,7 +2,7 @@ import pygame
 
 from main import screen
 
-from lvl_editor import SCREEN_HEIGHT
+from main import screen_height
 
 def update(self):
     dx = 0
@@ -50,7 +50,7 @@ def update(self):
     dy += self.vel_y
 
     # Check for collision
-    for tile in CyberCat_list:
+    for tile in ('CyberCat_list'):
         # Check for collision in x direction
         if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
             dx = 0
@@ -69,8 +69,8 @@ def update(self):
     self.rect.x += dx
     self.rect.y += dy
 
-    if self.rect.bottom > SCREEN_HEIGHT:
-        self.rect.bottom = SCREEN_HEIGHT
+    if self.rect.bottom > screen_height:
+        self.rect.bottom = screen_height
         dy = 0
 
     # Draw player onto screen
