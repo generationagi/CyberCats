@@ -52,11 +52,14 @@ pygame.display.set_caption('lvl Editor')
 
 def draw_grid():
         #vertical lines
-        for c in range(20 ):
+        for c in range(COLUMS ):
                 #vertical lines
-                pygame.draw.line(screen, WHITE, (c * TILE_SIZE, 0), (c * TILE_SIZE, SCREEN_HEIGHT - LOWER_MARGIN))
-		#horizontal lines
+                pygame.draw.line(screen, WHITE, (c * TILE_SIZE, 0), (c * TILE_SIZE, SCREEN_HEIGHT))
+	
+        for c in range(ROWS ):
+                #Horizontal lines
                 pygame.draw.line(screen, WHITE, (0, c * TILE_SIZE), (SCREEN_WIDTH, c * TILE_SIZE))
+		
 
 
 
