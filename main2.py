@@ -54,7 +54,7 @@ world_data = [
 world = World(world_data, tile_size)  
 
 player = Player(100, screen_height - 130, screen_height)
-
+player.set_world(world)
 
 run = True
 while run:
