@@ -1,54 +1,71 @@
 import pygame
+from pygame.locals import *
+from Player import Player
+from World import World  
 
-
-from Collision import collision
-#Importing and initialising the pygame library
 
 pygame.init()
 
-#Test commit by Mayerlin
-#Setting a resolution
-screen_width = 800
-screen_height = 800
+screen_width = 1000
+screen_height = 1000
 
-#Giving a name to the app as it runs
-pygame.display.set_caption("CyberCat")
 screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Platformer')
 
-BG = pygame.image.load('pictures/bg_img.png')
+#define game variables
+tile_size = 50
 
-#Locating the Background image from a temporary picture folder *will change*
-pygame.display.set_caption('Cyber Cats')
+# Load images
+sun_img = pygame.image.load('img/sun.png')
+bg_img = pygame.image.load('img/sky.png')
 
-#define game variable
-tile_size = 40
+def draw_grid():
+	for line in range(0, 20):
+		pygame.draw.line(screen, (255, 255, 255), (0, line * tile_size), (screen_width, line * tile_size))
+		pygame.draw.line(screen, (255, 255, 255), (line * tile_size, 0), (line * tile_size, screen_height))
 
+world_data = [
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 1], 
+[1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 2, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 7, 0, 5, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1], 
+[1, 7, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 1], 
+[1, 0, 2, 0, 0, 7, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 0, 0, 0, 0, 2, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 1], 
+[1, 0, 0, 0, 0, 0, 2, 2, 2, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1], 
+[1, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+[1, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+[1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+]
 
+#Create an instance of the World class
+world = World(world_data, tile_size)  
 
-
-
-
-
-
-# the app running loop 
-
-#world = World(world_data)
+player = Player(100, screen_height - 130, screen_height)
+world = World(world_data, tile_size)
 
 run = True
 while run:
-    
-        screen.blit(BG, (0, 0))
-    
-        #world.draw()
+    screen.blit(bg_img, (0, 0))
+    screen.blit(sun_img, (100, 100))
 
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                        run = False
+    world.draw(screen)
+    player.update()
+    player.draw(screen)
 
-        pygame.display.update()
-        
-  
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+    pygame.display.update()
 
 pygame.quit()
-
-
