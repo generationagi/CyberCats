@@ -29,7 +29,7 @@ WHITE = (255, 255, 255)
 
 #load images
 
-bg_image = pygame.image.load('pictures/cheese_planet.jpg').convert_alpha()
+bg_image = pygame.image.load('pictures/bg_img.png').convert_alpha()
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH , SCREEN_HEIGHT))
 
 #function to draw BG
