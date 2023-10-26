@@ -15,9 +15,10 @@ class Enemy(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.move_direction
         self.move_counter += 1
-        if self.move_counter > 50:
+        if abs(self.move_counter) > 50:
+            #Flips movement
             self.move_direction *= -1
-            self.move_counter = 0
+            self.move_counter *= -1
 
 class World:
     def __init__(self, data, tile_size):
