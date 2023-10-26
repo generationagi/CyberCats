@@ -2,8 +2,7 @@ import pygame
 from pygame.locals import *
 from Player import Player
 from World import World  
-
-
+from Lava import Lava
 
 pygame.init()
 
@@ -52,23 +51,26 @@ world_data = [
 ]
 
 world = World(world_data, tile_size)  
-
 player = Player(100, screen_height - 130, screen_height)
 player.set_world(world)
-
 blob_group = world.blob_group
+#Lava_group = pygame.sprite.Group()
+lava_group = world.lava_group
 
 run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
     screen.blit(sun_img, (100, 100))
-
+    
     world.draw(screen)
     player.update()
     player.draw(screen)
     blob_group.update()
     blob_group.draw(screen)
+    lava_group.update()
+    lava_group.draw(screen)
+    
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

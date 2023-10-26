@@ -1,5 +1,5 @@
-from typing import Any
 import pygame
+from Lava import Lava
 
 #Do not know workaround to put in seperate file
 class Enemy(pygame.sprite.Sprite):
@@ -23,6 +23,7 @@ class Enemy(pygame.sprite.Sprite):
 class World:
     def __init__(self, data, tile_size):
         self.tile_list = []
+        self.lava_group = pygame.sprite.Group()
 
         # Load images
         dirt_img = pygame.image.load('img/dirt.png')
@@ -51,6 +52,9 @@ class World:
                 if tile == 3:
                     blob = Enemy(col_count * tile_size, row_count * tile_size + 15)
                     self.blob_group.add(blob) 
+                if tile == 6:
+                    lava = Lava(col_count * tile_size, row_count * tile_size, tile_size)
+                    self.lava_group.add(lava)
                 col_count += 1
             row_count += 1
 
