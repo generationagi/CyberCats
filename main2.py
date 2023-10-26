@@ -17,6 +17,7 @@ pygame.display.set_caption('Platformer')
 
 #Define game variables
 tile_size = 50
+game_over = 0
 
 #Load images
 sun_img = pygame.image.load('img/sun.png')
@@ -51,11 +52,15 @@ world_data = [
 ]
 
 world = World(world_data, tile_size)  
-player = Player(100, screen_height - 130, screen_height)
-player.set_world(world)
+blob_group_group = pygame.sprite.Group()
 blob_group = world.blob_group
-#Lava_group = pygame.sprite.Group()
+Lava_group = pygame.sprite.Group()
 lava_group = world.lava_group
+
+player = Player(100, screen_height - 130, screen_height, game_over)
+player.set_groups(blob_group, lava_group)
+player.set_world(world)
+
 
 run = True
 while run:
