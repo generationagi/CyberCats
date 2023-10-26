@@ -4,6 +4,7 @@ from Player import Player
 from World import World  
 
 
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -50,11 +51,12 @@ world_data = [
 [1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-#Create an instance of the World class
 world = World(world_data, tile_size)  
 
 player = Player(100, screen_height - 130, screen_height)
 player.set_world(world)
+
+blob_group = world.blob_group
 
 run = True
 while run:
@@ -65,6 +67,8 @@ while run:
     world.draw(screen)
     player.update()
     player.draw(screen)
+    blob_group.update()
+    blob_group.draw(screen)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
