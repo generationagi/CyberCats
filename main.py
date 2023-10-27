@@ -24,8 +24,8 @@ game_over = 0
 
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
-exit_img = pygame.image.load('img/sun.png')
-
+quit_img = pygame.image.load('img/sun.png')
+exit_img = pygame.image.load('img/acid.png')
 
 
 #load sounds
@@ -48,7 +48,7 @@ world_data = [
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 1], 
-[1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 2, 1], 
+[1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 2, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 7, 0, 5, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1], 
 [1, 7, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
@@ -69,8 +69,10 @@ world_data = [
 
 world = World(world_data, tile_size)
 
-start_button = Button(screen_width // 2 - 350, screen_height // 2, 'img/start.png')
-exit_button = Button(screen_width // 2 + 150, screen_height // 2, 'img/quit.png')
+start_button = Button(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
+quit_button = Button(screen_width // 2 + 100, screen_height // 16, 'img/quit.png')
+
+
 
 world = World(world_data, tile_size)  
 blob_group_group = pygame.sprite.Group()
@@ -109,7 +111,7 @@ while run:
         
        
         start_button.draw(screen)
-        exit_button.draw(screen)
+        quit_button.draw(screen)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
