@@ -39,18 +39,26 @@ game_over_fx = pygame.mixer.Sound('sound/death.wav')
 game_over_fx.set_volume(0.5)
 
 
+
 def draw_grid():
 	for line in range(0, 20):
 		pygame.draw.line(screen, (255, 255, 255), (0, line * tile_size), (screen_width, line * tile_size))
 		pygame.draw.line(screen, (255, 255, 255), (line * tile_size, 0), (line * tile_size, screen_height))
 
+
+def reset_game():
+    # Reset player's position
+    player.rect.x = 100
+    player.rect.y = screen_height - 130
+    player.game_over = 0 
+        
 world_data = [
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 1], 
-[1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 2, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 7, 0, 5, 0, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 2, 2, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 7, 0, 5, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 1], 
 [1, 7, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 1], 
@@ -91,31 +99,38 @@ run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
-    print(player.game_over)
-    
-    world.draw(screen)
-    player.update()
-    player.draw(screen)
-    blob_group.draw(screen)
-    lava_group.update()
-    lava_group.draw(screen)
-    exit_group.update
-    exit_group.draw
-    
-    
-    if player.game_over ==0:
-         blob_group.update()
-         
-    if player.game_over == -1:
-        player.image = player.death_image
-        
-       
-        start_button.draw(screen)
-        quit_button.draw(screen)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # Check if the left mouse button is clicked
+                if start_button.rect.collidepoint(event.pos):
+                    reset_game()   
+                elif quit_button.rect.collidepoint(event.pos):
+                    quit_button.quit_game()
+
+
+    # Place your game rendering and updating logic within the game loop
+    if player.game_over == 0:
+        world.draw(screen)
+        player.update()
+        player.draw(screen)
+        blob_group.draw(screen)
+        lava_group.update()
+        lava_group.draw(screen)
+        exit_group.update()
+        exit_group.draw(screen)
+        blob_group.update()
+         
+    if player.game_over == -1:
+        player.image = player.death_image
+
+        if game_over == -1:
+            if start_button.draw(screen):
+                reset_game()
+        start_button.draw(screen)
+        quit_button.draw(screen)
 
     pygame.display.update()
 
