@@ -70,6 +70,7 @@ while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
     screen.blit(sun_img, (100, 100))
+    print(player.game_over)
     
     world.draw(screen)
     player.update()
@@ -79,8 +80,10 @@ while run:
     lava_group.draw(screen)
     exit_group.update
     exit_group.draw
-    if player.game_over == 0:
+    if player.game_over == -1:
         blob_group.update()
+        player.image = player.death_image
+        
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

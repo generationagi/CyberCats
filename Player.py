@@ -16,6 +16,7 @@ class Player:
             pygame.transform.scale(pygame.image.load('img/cat7.png'), (40, 80)),
             pygame.transform.scale(pygame.image.load('img/cat8.png'), (40, 80))
         ]
+        self.death_image = pygame.image.load('img/death.png')
         self.counter = 0
         self.index = 0
         self.image = self.images_right[self.index]
@@ -130,6 +131,8 @@ class Player:
                     #Update player coordinates
                 self.rect.x += dx
                 self.rect.y += dy
+            
+            
 
 
     def draw(self, screen):
