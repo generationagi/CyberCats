@@ -125,13 +125,13 @@ class Player:
                         #If below ground
                         if self.vel_y < 0:
                             dy = tile[1].bottom - self.rect.top
-                            self.jumped == True
+                            self.jumped = True
                         #If above ground
                         elif self.vel_y >= 0:
                             dy = tile[1].top - self.rect.bottom
                             self.vel_y = 0
                             self.standing = True
-                    if self.standing == True:
+                    if self.standing:
                         self.jump = True
 
             
@@ -150,4 +150,4 @@ class Player:
 
     
         
-        
+  
