@@ -1,7 +1,8 @@
 import pygame
 from pygame.locals import *
 from Player import Player
-from World import World  
+from World import World
+from Button import Button  
 from Lava import Lava
 from Exit import Exit
 
@@ -52,7 +53,9 @@ world_data = [
 [1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-world = World(world_data, tile_size)  
+world = World(world_data, tile_size)
+button = Button(screen_width // 2, screen_height // 2, 'img/restart.png')
+
 blob_group_group = pygame.sprite.Group()
 blob_group = world.blob_group
 Lava_group = pygame.sprite.Group()
@@ -63,7 +66,6 @@ exit_group = world.exit_group
 player = Player(100, screen_height - 130, screen_height, game_over)
 player.set_groups(blob_group, lava_group, exit_group)
 player.set_world(world)
-
 
 run = True
 while run:
@@ -80,9 +82,11 @@ while run:
     lava_group.draw(screen)
     exit_group.update
     exit_group.draw
+    if player.game_over ==0:
+         blob_group.update()
     if player.game_over == -1:
-        blob_group.update()
         player.image = player.death_image
+        button.draw(screen)
         
     
     for event in pygame.event.get():
