@@ -2,18 +2,23 @@ import pygame
 from pygame.locals import *
 from Player import Player
 from World import World  
-
+from Lava import Lava
+from Exit import Exit
 
 pygame.init()
 
-screen_width = 1000
-screen_height = 1000
+clock = pygame.time.Clock()
+fps = 60
+
+screen_width = 800
+screen_height = 800
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Platformer')
 
 #define game variables
-tile_size = 50
+tile_size = 40
+game_over = 0
 
 # Load images
 sun_img = pygame.image.load('img/sun.png')
@@ -47,20 +52,39 @@ world_data = [
 [1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-#Create an instance of the World class
 world = World(world_data, tile_size)  
+blob_group_group = pygame.sprite.Group()
+blob_group = world.blob_group
+Lava_group = pygame.sprite.Group()
+lava_group = world.lava_group
+exit_group = pygame.sprite.Group()
+exit_group = world.exit_group
 
-player = Player(100, screen_height - 130, screen_height)
-world = World(world_data, tile_size)
+player = Player(100, screen_height - 130, screen_height, game_over)
+player.set_groups(blob_group, lava_group, exit_group)
+player.set_world(world)
+
 
 run = True
 while run:
+    clock.tick(fps)
     screen.blit(bg_img, (0, 0))
     screen.blit(sun_img, (100, 100))
-
+    print(player.game_over)
+    
     world.draw(screen)
     player.update()
     player.draw(screen)
+    blob_group.draw(screen)
+    lava_group.update()
+    lava_group.draw(screen)
+    exit_group.update
+    exit_group.draw
+    if player.game_over == -1:
+        blob_group.update()
+        player.image = player.death_image
+        
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
