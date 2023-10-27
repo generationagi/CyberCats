@@ -30,9 +30,9 @@ class Player:
         self.jump = True
         self.screen_height = screen_height
 
-        self.walk_cd = 100  # Increase this value to make the player move even slower
-        self.dx = 1  # Decrease this value to make the player move slower horizontally
-        self.vel_y = 1  # Decrease this value to make the player jump slower
+        self.walk_cd = 5  # Increase this value to make the player move even slower
+        self.dx = 20  # Decrease this value to make the player move slower horizontally
+        self.vel_y = 15  # Decrease this value to make the player jump slower
         #"Python Game Programming by Example" by Alejandro Rodas de Paz.
 
     def set_world(self, world):
