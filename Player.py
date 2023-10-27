@@ -89,8 +89,11 @@ class Player:
 
             if dx < 0:
                 self.image = self.images_left[self.index]
-            else:
+            if dx > 0:
                 self.image = self.images_right[self.index]
+            if dx == 0:
+                self.image = pygame.transform.scale(pygame.image.load('img/cat.png'), (40, 80))
+
 
             #Animation
             if self.counter > walk_cd:
