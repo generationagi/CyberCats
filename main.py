@@ -63,7 +63,7 @@ world_data = [
 [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 1], 
 [1, 0, 2, 0, 0, 7, 0, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 3, 2, 3, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 2, 0, 0, 4, 0, 2, 0, 3, 0, 2, 3, 0, 0, 2, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 0, 0, 0, 0, 2, 0, 1], 
@@ -111,23 +111,22 @@ while run:
                     quit_button.quit_game()
 
 
-    # Place your game rendering and updating logic within the game loop
+    #Rendering
+    player.update()
+    player.draw(screen)
+    
     if player.game_over == 0:
         world.draw(screen)
-        player.update()
-        player.draw(screen)
         blob_group.draw(screen)
-        lava_group.update()
-        lava_group.draw(screen)
         exit_group.update()
         exit_group.draw(screen)
+        lava_group.update()
+        lava_group.draw(screen)
         blob_group.update()
          
     if player.game_over == -1:
         player.image = player.death_image
-
-        if game_over == -1:
-            if start_button.draw(screen):
+        if start_button.draw(screen):
                 reset_game()
         start_button.draw(screen)
         quit_button.draw(screen)
