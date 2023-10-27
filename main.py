@@ -24,8 +24,8 @@ game_over = 0
 
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
-quit_img = pygame.image.load('img/sun.png')
-exit_img = pygame.image.load('img/acid.png')
+sun_img = pygame.image.load('img/sun.png')
+
 
 
 #load sounds
@@ -93,13 +93,13 @@ exit_group = world.exit_group
 player = Player(100, screen_height - 130, screen_height, game_over)
 player.set_groups(blob_group, lava_group, exit_group)
 player.set_world(world)
-
+player.game_over = 1
 
 run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
-    
+    screen.blit(sun_img, (100, 100))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -112,8 +112,12 @@ while run:
 
 
     #Rendering
-    player.update()
-    player.draw(screen)
+
+    if player.game_over == 1:
+        start_button.draw(screen)
+        quit_button.draw(screen)
+         
+
     
     if player.game_over == 0:
         world.draw(screen)
@@ -123,9 +127,13 @@ while run:
         lava_group.update()
         lava_group.draw(screen)
         blob_group.update()
+        player.update()
+        player.draw(screen)
          
     if player.game_over == -1:
         player.image = player.death_image
+        player.update()
+        player.draw(screen)
         if start_button.draw(screen):
                 reset_game()
         start_button.draw(screen)
