@@ -30,6 +30,11 @@ class Player:
         self.jump = True
         self.screen_height = screen_height
 
+        self.walk_cd = 300  # Increase this value to make the player move even slower
+        self.dx = 0.01  # Decrease this value to make the player move slower horizontally
+        self.vel_y = 0.5  # Decrease this value to make the player jump slower
+        #"Python Game Programming by Example" by Alejandro Rodas de Paz.
+
     def set_world(self, world):
         self.world = world
 
@@ -50,14 +55,13 @@ class Player:
     def update(self):
         dx = 0
         dy = 0
-        walk_cd = 5
+        walk_cd = 30
         self.blob_collision(self.blob_group)
         self.lava_collision(self.lava_group)
         self.standing = False
         
 
         if self.game_over == 0:
-            #Get keypresses
             # Get keypresses
             key = pygame.key.get_pressed()
             print(self.jump, 'jump')
@@ -71,10 +75,10 @@ class Player:
                 self.jump = False
 
             if key[pygame.K_LEFT]:
-                dx -= 5
+                dx -= 1
                 self.counter += 1
             if key[pygame.K_RIGHT]:
-                dx += 5
+                dx += 1
                 self.counter += 1
 
             if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
@@ -140,7 +144,7 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-        pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
+       
 
         return self.game_over
 
