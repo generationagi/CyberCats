@@ -3,20 +3,18 @@ import pygame
 class Player:
     def __init__(self, x, y, screen_height, game_over):
         self.game_over = game_over
-        self.blob_group = None
-        self.lava_group = None
         self.images_right = [
-            pygame.transform.scale(pygame.image.load('img/guy1.png'), (40, 80)),
-            pygame.transform.scale(pygame.image.load('img/guy2.png'), (40, 80)),
-            pygame.transform.scale(pygame.image.load('img/guy3.png'), (40, 80)),
-            pygame.transform.scale(pygame.image.load('img/guy4.png'), (40, 80))
+            pygame.transform.scale(pygame.image.load('img/cat1.png'), (40, 80)),
+            pygame.transform.scale(pygame.image.load('img/cat2.png'), (40, 80)),
+            pygame.transform.scale(pygame.image.load('img/cat3.png'), (40, 80)),
+            pygame.transform.scale(pygame.image.load('img/cat4.png'), (40, 80))
         ]
         #Flip once assets are given
         self.images_left = [
-            pygame.transform.scale(pygame.image.load('img/guy1.png'), (40, 80)),
-            pygame.transform.scale(pygame.image.load('img/guy2.png'), (40, 80)),
-            pygame.transform.scale(pygame.image.load('img/guy3.png'), (40, 80)),
-            pygame.transform.scale(pygame.image.load('img/guy4.png'), (40, 80))
+            pygame.transform.scale(pygame.image.load('img/cat5.png'), (40, 80)),
+            pygame.transform.scale(pygame.image.load('img/cat6.png'), (40, 80)),
+            pygame.transform.scale(pygame.image.load('img/cat7.png'), (40, 80)),
+            pygame.transform.scale(pygame.image.load('img/cat8.png'), (40, 80))
         ]
         self.counter = 0
         self.index = 0
@@ -28,15 +26,16 @@ class Player:
         self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
+        self.jump = True
         self.screen_height = screen_height
-        self.world = None
 
     def set_world(self, world):
         self.world = world
 
-    def set_groups(self, blob_group, lava_group):
+    def set_groups(self, blob_group, lava_group, exit_group):
         self.blob_group = blob_group
         self.lava_group = lava_group
+        self.exit_group = exit_group
 
     def blob_collision(self, blob_group):
         if pygame.sprite.spritecollide(self, self.blob_group, False):
@@ -51,27 +50,46 @@ class Player:
         dx = 0
         dy = 0
         walk_cd = 5
+        self.blob_collision(self.blob_group)
+        self.lava_collision(self.lava_group)
+        self.standing = False
+        
 
         if self.game_over == 0:
-            self.blob_collision(self.blob_group)
-            self.lava_collision(self.lava_group)
             #Get keypresses
+            # Get keypresses
             key = pygame.key.get_pressed()
+            print(self.jump, 'jump')
+            print(self.jumped)
+
+            if self.jump == True:
+                self.jumped = False   
             if key[pygame.K_SPACE] and not self.jumped:
                 self.vel_y = -15
                 self.jumped = True
-            if not key[pygame.K_SPACE]:
-                self.jumped = False
+                self.jump = False
+
             if key[pygame.K_LEFT]:
-                self.counter += 1
                 dx -= 5
+                self.counter += 1
             if key[pygame.K_RIGHT]:
                 dx += 5
                 self.counter += 1
-                if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
-                    self.counter = 0 
+
+            if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
+                self.counter = 0
+                self.index = 0
+
+            if self.counter > walk_cd:
+                self.counter = 0
+                self.index += 1
+                if self.index >= len(self.images_right):
                     self.index = 0
-                    self.image = self.images_right[self.index]
+
+            if dx < 0:
+                self.image = self.images_left[self.index]
+            else:
+                self.image = self.images_right[self.index]
 
             #Animation
             if self.counter > walk_cd:
@@ -99,10 +117,14 @@ class Player:
                         #If below ground
                         if self.vel_y < 0:
                             dy = tile[1].bottom - self.rect.top
+                            self.jumped == True
                         #If above ground
                         elif self.vel_y >= 0:
                             dy = tile[1].top - self.rect.bottom
                             self.vel_y = 0
+                            self.standing = True
+                    if self.standing == True:
+                        self.jump = True
 
             
                     #Update player coordinates

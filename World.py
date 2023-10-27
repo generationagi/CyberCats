@@ -1,11 +1,12 @@
 import pygame
 from Lava import Lava
+from Exit import Exit
 
 #Do not know workaround to put in seperate file
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('img/blob.png')
+        self.image = pygame.image.load('img/slime.png')
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -24,12 +25,13 @@ class World:
     def __init__(self, data, tile_size):
         self.tile_list = []
         self.lava_group = pygame.sprite.Group()
+        self.exit_group = pygame.sprite.Group()
+        self.blob_group = pygame.sprite.Group()
 
         #Load images
-        dirt_img = pygame.image.load('img/dirt.png')
-        grass_img = pygame.image.load('img/grass.png')
+        grass_img = pygame.image.load('img/top_block.png')
+        dirt_img = pygame.image.load('img/block.png')
 
-        self.blob_group = pygame.sprite.Group()
 
         row_count = 0
         for row in data:
@@ -55,6 +57,9 @@ class World:
                 if tile == 6:
                     lava = Lava(col_count * tile_size, row_count * tile_size, tile_size)
                     self.lava_group.add(lava)
+                if tile == 6:
+                    exit = Exit(col_count * tile_size, row_count * tile_size, tile_size)
+                    self.exit_group.add(exit)
                 col_count += 1
             row_count += 1
 

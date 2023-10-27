@@ -3,9 +3,10 @@ from pygame.locals import *
 from Player import Player
 from World import World  
 from Lava import Lava
+from Exit import Exit
 
 pygame.init()
-
+ 
 clock = pygame.time.Clock()
 fps = 60
 
@@ -56,9 +57,11 @@ blob_group_group = pygame.sprite.Group()
 blob_group = world.blob_group
 Lava_group = pygame.sprite.Group()
 lava_group = world.lava_group
+exit_group = pygame.sprite.Group()
+exit_group = world.exit_group
 
 player = Player(100, screen_height - 130, screen_height, game_over)
-player.set_groups(blob_group, lava_group)
+player.set_groups(blob_group, lava_group, exit_group)
 player.set_world(world)
 
 
@@ -71,12 +74,14 @@ while run:
     world.draw(screen)
     player.update()
     player.draw(screen)
-    blob_group.update()
     blob_group.draw(screen)
     lava_group.update()
     lava_group.draw(screen)
+    exit_group.update
+    exit_group.draw
+    if player.game_over == 0:
+        blob_group.update()
     
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
