@@ -15,15 +15,17 @@ screen_width = 800
 screen_height = 800
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Platformer')
+pygame.display.set_caption('Cyber Cats')
 
 #define game variables
 tile_size = 40
 game_over = 0
 
 # Load images
-sun_img = pygame.image.load('img/sun.png')
-bg_img = pygame.image.load('img/sky.png')
+bg_img = pygame.image.load('img/sky1.png')
+exit_img = pygame.image.load('img/sun.png')
+
+
 
 #load sounds
 pygame.mixer.music.load('sound/music.mp3')
@@ -50,9 +52,9 @@ world_data = [
 [1, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 1], 
 [1, 7, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 1], 
-[1, 0, 2, 0, 0, 7, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 1], 
+[1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 7, 0, 0, 7, 0, 0, 0, 0, 1], 
+[1, 0, 2, 0, 0, 7, 0, 7, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+[1, 0, 0, 2, 0, 0, 4, 0, 0, 0, 0, 3, 2, 3, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 0, 0, 0, 0, 2, 0, 1], 
@@ -81,7 +83,7 @@ run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
-    screen.blit(sun_img, (100, 100))
+
     print(player.game_over)
     
     world.draw(screen)
