@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 from pygame.locals import *
 from Player import Player
 from World import World
@@ -24,6 +25,18 @@ game_over = 0
 #Load images
 sun_img = pygame.image.load('img/sun.png')
 bg_img = pygame.image.load('img/sky.png')
+
+
+#load sounds
+pygame.mixer.music.load('sound/music.mp3')
+pygame.mixer.music.play(-1, 0.0, 5000)
+coin_fx = pygame.mixer.Sound('sound/mushroom.wav')
+coin_fx.set_volume(0.5)
+jump_fx = pygame.mixer.Sound('sound/jump.wav')
+jump_fx.set_volume(0.5)
+game_over_fx = pygame.mixer.Sound('sound/death.wav')
+game_over_fx.set_volume(0.5)
+
 
 def draw_grid():
 	for line in range(0, 20):
