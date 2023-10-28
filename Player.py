@@ -55,6 +55,7 @@ class Player:
     def update(self):
         dx = 0
         dy = 0
+        #Animation cd (higher = slower)
         walk_cd = 10
         self.blob_collision(self.blob_group)
         self.lava_collision(self.lava_group)
@@ -75,10 +76,12 @@ class Player:
                 self.jump = False
 
             if key[pygame.K_LEFT]:
-                dx -= 1
+                #Left walk speed
+                dx -= 3
                 self.counter += 1
             if key[pygame.K_RIGHT]:
-                dx += 1
+                #Right walk speed
+                dx += 3
                 self.counter += 1
 
             if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
