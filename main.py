@@ -24,7 +24,7 @@ pygame.display.set_caption('Cyber Cats')
 tile_size = 40
 game_state = 0
 level = 1
-
+score = 0
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
 
@@ -104,6 +104,8 @@ while run:
         player.draw(screen)
         mushroom_group.draw(screen)
         mushroom_group.update()
+	if pygame.sprite.spritecollide(player, mushroom_group, True):
+		score += 1
          
     if player.game_state == -1:
         player.image = player.death_image
