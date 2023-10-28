@@ -1,8 +1,8 @@
 import pygame
 
 class Player:
-    def __init__(self, x, y, screen_height, game_over):
-        self.game_over = game_over
+    def __init__(self, x, y, screen_height, game_state):
+        self.game_state = game_state
         self.images_right = [
             pygame.transform.scale(pygame.image.load('img/cat1.png'), (40, 80)),
             pygame.transform.scale(pygame.image.load('img/cat2.png'), (40, 80)),
@@ -29,11 +29,7 @@ class Player:
         self.jumped = False
         self.jump = True
         self.screen_height = screen_height
-
-        self.walk_cd = 5  # Increase this value to make the player move even slower
-        self.dx = 20  # Decrease this value to make the player move slower horizontally
-        self.vel_y = 15  # Decrease this value to make the player jump slower
-        #"Python Game Programming by Example" by Alejandro Rodas de Paz.
+        self.hitbox = pygame.Rect(x, y, self.width, self.height)
 
     def set_world(self, world):
         self.world = world
@@ -45,12 +41,12 @@ class Player:
 
     def blob_collision(self, blob_group):
         if pygame.sprite.spritecollide(self, self.blob_group, False):
-            self.game_over = -1
+            self.game_state = -1
 
     def lava_collision(self, lava_group):
         if pygame.sprite.spritecollide(self, self.lava_group, False):
-            self.game_over = -1
-            print(self.game_over)
+            self.game_state = -1
+            print(self.game_state)
     
     def update(self):
         dx = 0
@@ -62,7 +58,7 @@ class Player:
         self.standing = False
         
 
-        if self.game_over == 0:
+        if self.game_state == 0:
             # Get keypresses
             key = pygame.key.get_pressed()
             print(self.jump, 'jump')
@@ -71,7 +67,7 @@ class Player:
             if self.jump == True:
                 self.jumped = False   
             if key[pygame.K_SPACE] and not self.jumped:
-                self.vel_y = -15
+                self.vel_y = -30
                 self.jumped = True
                 self.jump = False
 
@@ -149,7 +145,7 @@ class Player:
         screen.blit(self.image, self.rect)
        
 
-        return self.game_over
+        return self.game_state
 
     
         
