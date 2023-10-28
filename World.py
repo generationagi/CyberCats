@@ -7,7 +7,7 @@ class World():
     def __init__(self, data, tile_size):
         self.tile_list = []
         self.lava_group = pygame.sprite.Group()
-        self.mushroon_group = pygame.sprite.Group()
+        self.mushroom_group = pygame.sprite.Group()
         self.exit_group = pygame.sprite.Group()
         self.blob_group = pygame.sprite.Group()
 
