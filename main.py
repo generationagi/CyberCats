@@ -130,8 +130,8 @@ while run:
         blob_group.update()
         player.update()
         player.draw(screen)
-	mushroom_group.draw()
 	mushroom_group.update()
+        mushroom_group.draw(screen)
          
     if player.game_over == -1:
         player.image = player.death_image
