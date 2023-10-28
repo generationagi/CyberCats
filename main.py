@@ -24,7 +24,6 @@ game_over = 0
 
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
-sun_img = pygame.image.load('img/sun.png')
 
 
 
@@ -99,7 +98,7 @@ run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
-    screen.blit(sun_img, (100, 100))
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
