@@ -2,6 +2,7 @@ import pygame
 from Lava import Lava
 from Mushroom import Mushroom
 from Exit import Exit
+from level_data import world_data
 
 class World():
     def __init__(self, data, tile_size):
@@ -79,7 +80,4 @@ class Enemy(pygame.sprite.Sprite):
                 self.move_direction *= -1
                 self.move_counter = 0
   
-
-        
-        print(self.move_counter)
         

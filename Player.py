@@ -23,7 +23,8 @@ class Player:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.width = self.image.get_width()
+        self.width = self.image.get_width() - 5
+        print(self.width)
         self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
@@ -46,7 +47,6 @@ class Player:
     def lava_collision(self, lava_group):
         if pygame.sprite.spritecollide(self, self.lava_group, False):
             self.game_state = -1
-            print(self.game_state)
     
     def update(self):
         dx = 0
@@ -61,13 +61,10 @@ class Player:
         if self.game_state == 0:
             # Get keypresses
             key = pygame.key.get_pressed()
-            print(self.jump, 'jump')
-            print(self.jumped)
-
             if self.jump == True:
                 self.jumped = False   
             if key[pygame.K_SPACE] and not self.jumped:
-                self.vel_y = -30
+                self.vel_y = -15
                 self.jumped = True
                 self.jump = False
 
@@ -143,6 +140,7 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+        pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
        
 
         return self.game_state

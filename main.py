@@ -7,6 +7,7 @@ from Lava import Lava
 from Mushroom import Mushroom
 from Exit import Exit
 from Button import Button
+from level_data import world_data
 
 pygame.init()
 
@@ -21,7 +22,8 @@ pygame.display.set_caption('Cyber Cats')
 
 #define game variables
 tile_size = 40
-game_over = 0
+game_state = 0
+level = 1
 
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
@@ -43,58 +45,31 @@ game_over_fx.set_volume(0.5)
 def draw_grid():
 	for line in range(0, 20):
 		pygame.draw.line(screen, (255, 255, 255), (0, line * tile_size), (screen_width, line * tile_size))
-		pygame.draw.line(screen, (255, 255, 255), (line * tile_size, 0), (line * tile_size, screen_height))
+		pygame.draw.line(screen, (255, 255, 255), (line * tile_size, 0), (line * tile_size, screen_height))          
 
 
 def reset_game():
     # Reset player's position
     player.rect.x = 100
     player.rect.y = screen_height - 130
-    player.game_over = 0 
-        
-world_data = [
-[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 8, 8], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 0, 0, 0, 0, 0, 0, 8, 8], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1], 
-[1, 0, 0, 0, 7, 7, 7, 0, 2, 0, 2, 2, 0, 0, 0, 5, 0, 0, 0, 1], 
-[1, 7, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 1], 
-[1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 2, 0, 0, 0, 0, 0, 2, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 1], 
-[1, 0, 0, 2, 0, 0, 4, 0, 2, 0, 3, 0, 2, 3, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 1], 
-[1, 0, 0, 0, 0, 0, 2, 2, 2, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1], 
-[1, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-[1, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-[1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-]
-
-world = World(world_data, tile_size)
+    player.game_state = 0 
 
 start_button = Button(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
 quit_button = Button(screen_width // 2 + 100, screen_height // 16, 'img/quit.png')
 
+world = World(world_data, tile_size)
 
-
-world = World(world_data, tile_size)  
-blob_group_group = pygame.sprite.Group()
 blob_group = world.blob_group
 Lava_group = pygame.sprite.Group()
 lava_group = world.lava_group
-Mushroom_group = pygame.sprite.Group()
+mushroom_group = pygame.sprite.Group()
 mushroom_group = world.mushroom_group
 exit_group = world.exit_group
 
-player = Player(100, screen_height - 130, screen_height, game_over)
+player = Player(100, screen_height - 130, screen_height, game_state)
 player.set_groups(blob_group, lava_group, exit_group)
 player.set_world(world)
-player.game_over = 1
+player.game_state = 1
 
 run = True
 while run:
@@ -113,27 +88,24 @@ while run:
 
 
     #Rendering
-
-    if player.game_over == 1:
+    if player.game_state == 1:
         start_button.draw(screen)
         quit_button.draw(screen)
-         
-
     
-    if player.game_over == 0:
+    if player.game_state == 0:
         world.draw(screen)
         blob_group.draw(screen)
         exit_group.update()
         exit_group.draw(screen)
         lava_group.update()
         lava_group.draw(screen)
-        mushroom_group.update()
-        mushroom_group.draw(screen) 
         blob_group.update()
         player.update()
         player.draw(screen)
+        mushroom_group.draw(screen)
+        mushroom_group.update()
          
-    if player.game_over == -1:
+    if player.game_state == -1:
         player.image = player.death_image
         player.update()
         player.draw(screen)
