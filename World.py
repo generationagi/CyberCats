@@ -42,7 +42,7 @@ class World():
                     self.lava_group.add(lava)
                 if tile == 7:
                     mushroom = Mushroom(col_count * tile_size, row_count * tile_size, tile_size)
-                    self.lava_group.add(mushroom)
+                    self.mushroom_group.add(mushroom)
                 if tile == 8:
                     exit = Exit(col_count * tile_size, row_count * tile_size, tile_size)
                     self.exit_group.add(exit)
