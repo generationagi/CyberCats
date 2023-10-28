@@ -88,8 +88,7 @@ blob_group = world.blob_group
 Lava_group = pygame.sprite.Group()
 lava_group = world.lava_group
 Mushroom_group = pygame.sprite.Group()
-Mushroom_group = world.mushroom_group
-exit_group = pygame.sprite.Group()
+mushroom_group = world.mushroom_group
 exit_group = world.exit_group
 
 player = Player(100, screen_height - 130, screen_height, game_over)
