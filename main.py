@@ -20,15 +20,23 @@ screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Cyber Cats')
 
+font_score = pygame.font.SysFont("Bauhaus 93", 35)
+
 #define game variables
 tile_size = 40
 game_state = 0
 level = 1
 score = 0
+
+#define colours
+red = (255, 0, 0)
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
 
-
+def draw_text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x,y))
+	
 
 #load sounds
 pygame.mixer.music.load('sound/music.mp3')
@@ -106,6 +114,7 @@ while run:
         mushroom_group.update()
 	if pygame.sprite.spritecollide(player, mushroom_group, True):
 		score += 1
+	draw_text("X " + str(score), font_score, red, tile_size -10, 10)
          
     if player.game_state == -1:
         player.image = player.death_image
@@ -115,6 +124,7 @@ while run:
                 reset_game()
         start_button.draw(screen)
         quit_button.draw(screen)
+	score = 0
 
     pygame.display.update()
 
