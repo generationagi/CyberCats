@@ -22,6 +22,7 @@ pygame.display.set_caption('Cyber Cats')
 #define game variables
 tile_size = 40
 game_over = 0
+score = 0
 
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
