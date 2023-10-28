@@ -31,6 +31,8 @@ score = 0
 red = (255, 0, 0)
 # Load images
 bg_img = pygame.image.load('img/sky1.png')
+logo_img = pygame.image.load('img/logo.png')
+
 
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
@@ -112,6 +114,7 @@ while run:
         player.image = player.death_image
         player.update()
         player.draw(screen)
+        screen.blit(logo_img, (screen_width // 2 - logo_img.get_width() // 2, screen_height // 4 - logo_img.get_height() // 2))
         if start_button.draw(screen):
             reset_game()
         start_button.draw(screen)

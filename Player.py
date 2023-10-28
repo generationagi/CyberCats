@@ -140,7 +140,7 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-        pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
+        
        
 
         return self.game_state
