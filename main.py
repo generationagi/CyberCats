@@ -88,6 +88,8 @@ while run:
                     quit_button.quit_game()
 
     if player.game_state == 1:
+         # Draw the logo on the start screen
+        screen.blit(logo_img, (screen_width // 2 - logo_img.get_width() // 2, screen_height // 4 - logo_img.get_height() // 2))
         start_button.draw(screen)
         quit_button.draw(screen)
     
