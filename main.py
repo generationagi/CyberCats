@@ -4,6 +4,7 @@ from pygame.locals import *
 from Player import Player
 from World import World  
 from Lava import Lava
+from Mushroom import Mushroom
 from Exit import Exit
 from Button import Button
 
@@ -86,6 +87,8 @@ blob_group_group = pygame.sprite.Group()
 blob_group = world.blob_group
 Lava_group = pygame.sprite.Group()
 lava_group = world.lava_group
+Mushroom_group = pygame.sprite.Group()
+Mushroom_group = world.mushroom_group
 exit_group = pygame.sprite.Group()
 exit_group = world.exit_group
 
