@@ -55,7 +55,7 @@ class Player:
     def update(self):
         dx = 0
         dy = 0
-        walk_cd = 30
+        walk_cd = 10
         self.blob_collision(self.blob_group)
         self.lava_collision(self.lava_group)
         self.standing = False
