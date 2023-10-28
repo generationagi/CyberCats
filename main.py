@@ -118,6 +118,9 @@ while run:
     if player.game_over == 1:
         start_button.draw(screen)
         quit_button.draw(screen)
+    
+   if pygame.sprite.spritecollide(player, mushroom_group, True):
+	   score +=1
          
 
     
