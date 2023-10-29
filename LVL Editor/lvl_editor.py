@@ -30,11 +30,29 @@ TILE_NR = 8
 
 SELECTED_TILE = 0
 
+
+#   Colors    yay!
+
 WHITE = (255, 255, 255)
 
 PURPLE = (128, 0, 128)
 
 RED_PURPLE = (149, 53, 83)
+
+#making empty tile list
+
+world_data = []
+for row in range(ROWS):
+	r = [-1] * COLUMS
+	world_data.append(r)
+
+#adding ground underneath the map 
+for tile in range(0, COLUMS):
+	world_data[ROWS - 1][tile] = 0
+
+
+
+
 #load images
 
 bg_image = pygame.image.load('pictures/bg_img.png').convert_alpha()
@@ -76,7 +94,12 @@ def draw_grid():
                 pygame.draw.line(screen, WHITE, (0, c * TILE_SIZE), (SCREEN_WIDTH, c * TILE_SIZE))
 		
 
-
+#function for drawing world tiles
+def draw_world():
+        for y, row in enumerate(world_data):
+                for x, tile in enumerate(row):
+                        if tile >= 0:
+                                screen.blit(pic_list[tile], (x * TILE_SIZE, y * TILE_SIZE))
 
 #create buttons
 #button list
@@ -100,6 +123,7 @@ while run:
         
         draw_bg()
         draw_grid()
+        draw_world()
 
         #drawring the tile pannel and tiles
         pygame.draw.rect(screen, PURPLE, (SCREEN_WIDTH, 0, SIDE_MARGIN, SCREEN_HEIGHT))
