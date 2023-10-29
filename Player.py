@@ -58,7 +58,7 @@ class Player:
         self.standing = False
         
 
-        if self.game_state == 0:
+        if self.game_state == 1:
             # Get keypresses
             key = pygame.key.get_pressed()
             if self.jump == True:
