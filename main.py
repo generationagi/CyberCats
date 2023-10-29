@@ -69,13 +69,10 @@ quit_button = Button(screen_width // 2 + 100, screen_height // 16, 'img/quit.png
 
 world = World(world_data, tile_size)
 
-blob_group = world.blob_group
-lava_group = world.lava_group
-mushroom_group = world.mushroom_group
-exit_group = world.exit_group
+
 
 player = Player(100, screen_height - 130, screen_height, game_state)
-player.set_groups(blob_group, lava_group, exit_group)
+player.set_groups(world.blob_group, world.lava_group, world.exit_group)
 player.set_world(world)
 player.game_state = 0
 
@@ -101,46 +98,46 @@ while run:
          # Draw the logo on the start screen
         screen.blit(logo_img, (screen_width // 2 - logo_img.get_width() // 2, screen_height // 4 - logo_img.get_height() // 2))
         start_button.draw(screen)
+        start_button.__init__(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
         quit_button.draw(screen)
     
     if player.game_state == 1:
         draw(screen)
-        blob_group.draw(screen)
+        world.blob_group.draw(screen)
         world.exit_group.update()
         world.exit_group.draw(screen)
-        lava_group.update()
-        lava_group.draw(screen)
-        blob_group.update()
+        world.lava_group.update()
+        world.lava_group.draw(screen)
+        world.blob_group.update()
         player.update()
         player.draw(screen)
         score = 0  # Reset the score
-        mushroom_group.draw(screen)
-        mushroom_group.update()
+        world.mushroom_group.draw(screen)
+        world.mushroom_group.update()
         
-        if pygame.sprite.spritecollide(player, mushroom_group, True):
+        if pygame.sprite.spritecollide(player, world.mushroom_group, True):
             score += 1
-        if pygame.sprite.spritecollide(player, exit_group, True):
+        if pygame.sprite.spritecollide(player, world.exit_group, True):
             player.game_state = 2
         
         draw_text("X " + str(score), font_score, red, tile_size - 10, 10)
 
     if player.game_state == 2:
         world.tile_list.clear()
-        world.tile_list = world2_data
         world.__init__(world2_data, tile_size)
-        reset_game()
-        print(world.tile_list)
+        #print(world.tile_list)
         #draw(screen)
-        blob_group.draw(screen)
+        world.blob_group.draw(screen)
         world.exit_group.update()
         world.exit_group.draw(screen)
-        lava_group.update()
-        lava_group.draw(screen)
-        blob_group.update()
+        world.lava_group.update()
+        world.lava_group.draw(screen)
+        world.blob_group.update()
         player.update()
         player.draw(screen)
-        mushroom_group.draw(screen)
-        mushroom_group.update()
+        world.mushroom_group.draw(screen)
+        world.mushroom_group.update()
+        reset_game()
       
         
     if player.game_state == -1:
