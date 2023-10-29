@@ -61,9 +61,14 @@ bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH , SCREEN_HEIGHT))
 #list that stores tiles nr list 
 pic_list = []
 for x in range(TILE_NR):
-        pic = pygame.image.load(f'pictures3/{x}.png')
+        pic = pygame.image.load(f'pictures3/{x}.png').convert_alpha()
         pic = pygame.transform.scale(pic , (TILE_SIZE, TILE_SIZE))
         pic_list.append(pic)
+
+#save & load images
+
+save_pic = pygame.image.load('menu buttons/save.png').convert_alpha()
+load_pic = pygame.image.load('menu buttons/load.png').convert_alpha()
 
 #function to draw BG
 
@@ -102,6 +107,11 @@ def draw_world():
                                 screen.blit(pic_list[tile], (x * TILE_SIZE, y * TILE_SIZE))
 
 #create buttons
+
+save_but = button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 50, save_pic, 1)
+load_but = button2.Button2(SCREEN_WIDTH // 2 + 200, SCREEN_HEIGHT + LOWER_MARGIN - 50, load_pic, 1)
+
+
 #button list
 but_list = []
 but_col = 0
@@ -124,6 +134,13 @@ while run:
         draw_bg()
         draw_grid()
         draw_world()
+
+
+
+        #save & load buttons data
+        save_but.draw(screen)
+        load_but.draw(screen)
+
 
         #drawring the tile pannel and tiles
         pygame.draw.rect(screen, PURPLE, (SCREEN_WIDTH, 0, SIDE_MARGIN, SCREEN_HEIGHT))
