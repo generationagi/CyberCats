@@ -1,6 +1,7 @@
 import pygame
 import pickle
 import button2
+from os import path
 
 
 pygame.init()
@@ -159,8 +160,26 @@ while run:
 
 
         #save & load buttons data
-        save_but.draw(screen)
-        load_but.draw(screen)
+        if save_but.draw(screen):
+		#save level data
+
+                #opening file to write
+                pickle_out = open(f'Cyber_level{level}_data', 'wb')
+                #dumping lvl data to world_data
+                pickle.dump(world_data, pickle_out)
+                pickle_out.close()
+        if load_but.draw(screen):
+                #load in level data
+
+                #reset wold_data list
+                world_data = []
+		
+                #check if path exsits
+                if path.exists(f'Cyber_level{level}_data'):
+                        #open with pickle to read data
+                        pickle_in = open(f'Cyber_level{level}_data', 'rb')
+                        #load in world_data list
+                        world_data = pickle.load(pickle_in)
 
 
         #drawring the tile pannel and tiles
