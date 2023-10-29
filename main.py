@@ -1,4 +1,5 @@
 import pygame
+pygame.init
 from pygame.locals import *
 from Player import Player
 from World import World  
@@ -69,8 +70,6 @@ quit_button = Button(screen_width // 2 + 100, screen_height // 16, 'img/quit.png
 
 world = World(world_data, tile_size)
 
-
-
 player = Player(100, screen_height - 130, screen_height, game_state)
 player.set_groups(world.blob_group, world.lava_group, world.exit_group)
 player.set_world(world)
@@ -82,23 +81,29 @@ while run:
     screen.blit(bg_img, (0, 0))
     #print(game_state)
     #print(level, 'level')
-    
+    #if start_button.clicked:
+        #print('bbbbb')
+        #reset_game()
+        #draw(screen)  
+    #if quit_button.clicked:
+        #run = False
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:  # Check if the left mouse button is clicked
                 if start_button.rect.collidepoint(event.pos):
+                    #print('aaaa')
                     reset_game()
                     draw(screen)   
                 if quit_button.rect.collidepoint(event.pos):
-                    pygame.quit
+                    run = False
 
     if player.game_state == 0:
          # Draw the logo on the start screen
         screen.blit(logo_img, (screen_width // 2 - logo_img.get_width() // 2, screen_height // 4 - logo_img.get_height() // 2))
         start_button.draw(screen)
-        start_button.__init__(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
         quit_button.draw(screen)
     
     if player.game_state == 1:
@@ -118,7 +123,8 @@ while run:
         if pygame.sprite.spritecollide(player, world.mushroom_group, True):
             score += 1
         if pygame.sprite.spritecollide(player, world.exit_group, True):
-            player.game_state = 2
+            player.game_state += 1
+            print(player.game_state)
         
         draw_text("X " + str(score), font_score, red, tile_size - 10, 10)
 
