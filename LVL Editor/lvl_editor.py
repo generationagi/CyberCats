@@ -30,6 +30,8 @@ TILE_NR = 8
 
 SELECTED_TILE = 0
 
+level = 0
+
 
 #   Colors    yay!
 
@@ -38,6 +40,12 @@ WHITE = (255, 255, 255)
 PURPLE = (128, 0, 128)
 
 RED_PURPLE = (149, 53, 83)
+
+YELLOW = (255,255,0)
+
+
+#define font to be used
+font = pygame.font.SysFont('Comic Sans', 35)
 
 #making empty tile list
 
@@ -51,6 +59,11 @@ for tile in range(0, COLUMS):
 	world_data[ROWS - 1][tile] = 0
 
 
+
+#function for showing text inside the game
+def draw_txt(text, font, text_col, x, y):
+	img = font.render(text, True, text_col)
+	screen.blit(img, (x, y))
 
 
 #load images
@@ -134,6 +147,8 @@ while run:
         draw_bg()
         draw_grid()
         draw_world()
+
+        draw_txt(f'Level: {level}', font, YELLOW, 10, SCREEN_HEIGHT + LOWER_MARGIN - 90)
 
 
 
