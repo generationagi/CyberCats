@@ -1,10 +1,16 @@
 import pygame
+pygame.init()
 from Lava import Lava
 from Mushroom import Mushroom
 from Exit import Exit
 from level_data import world_data
 
+
+
 class World():
+    screen = pygame.display.set_mode((800, 800))
+    pygame.display.set_caption('Cyber Cats')
+    
     def __init__(self, data, tile_size):
         self.tile_list = []
         self.lava_group = pygame.sprite.Group()
@@ -49,10 +55,9 @@ class World():
                     self.exit_group.add(exit)
                 col_count += 1
             row_count += 1
-
-    def draw(self, screen):
-        for tile in self.tile_list:
-            screen.blit(tile[0], tile[1])
+    
+    
+            
 
 
 
@@ -79,5 +84,3 @@ class Enemy(pygame.sprite.Sprite):
             if self.rect.colliderect(tile[1]):  # Check for collision with tile rect
                 self.move_direction *= -1
                 self.move_counter = 0
-  
-        
