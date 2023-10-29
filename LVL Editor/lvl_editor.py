@@ -28,10 +28,13 @@ TILE_SIZE = SCREEN_HEIGHT // ROWS
 
 TILE_NR = 8
 
+SELECTED_TILE = 0
+
 WHITE = (255, 255, 255)
 
 PURPLE = (128, 0, 128)
 
+RED_PURPLE = (149, 53, 83)
 #load images
 
 bg_image = pygame.image.load('pictures/bg_img.png').convert_alpha()
@@ -101,8 +104,18 @@ while run:
         #drawring the tile pannel and tiles
         pygame.draw.rect(screen, PURPLE, (SCREEN_WIDTH, 0, SIDE_MARGIN, SCREEN_HEIGHT))
 
-        for i in but_list:
-                i.draw(screen)
+
+
+        #select tile, as but_count updates SELECTED_TILE will update to the tile selected
+        but_count = 0
+        for but_count, i in enumerate(but_list):
+                if i.draw(screen):
+                        SELECTED_TILE = but_count
+
+        #showing the tile is selected by adding rectangle behind
+
+        pygame.draw.rect(screen, RED_PURPLE, but_list[SELECTED_TILE].rect, 3)
+
 
          
 
