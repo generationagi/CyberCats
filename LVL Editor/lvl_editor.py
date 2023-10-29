@@ -46,7 +46,7 @@ for row in range(ROWS):
 	r = [-1] * COLUMS
 	world_data.append(r)
 
-#adding ground underneath the map 
+#adding ground as editor starts
 for tile in range(0, COLUMS):
 	world_data[ROWS - 1][tile] = 0
 
@@ -141,7 +141,21 @@ while run:
         pygame.draw.rect(screen, RED_PURPLE, but_list[SELECTED_TILE].rect, 3)
 
 
-         
+        #adding new tiles to map -- Editing the map
+
+        #getting the position of the mouse
+        pos = pygame.mouse.get_pos()
+        x = pos[0] // TILE_SIZE
+        y = pos[1] // TILE_SIZE
+
+        #check if coordinates are inside the tile area where tiles are placed
+        if pos[0] < SCREEN_WIDTH and pos[1] < SCREEN_HEIGHT:
+		#update value of tile to curently selected tile
+                if pygame.mouse.get_pressed()[0] == 1:
+                        if world_data[y][x] != SELECTED_TILE:
+                                world_data[y][x] = SELECTED_TILE
+                if pygame.mouse.get_pressed()[2] == 1:
+                        world_data[y][x] = -1
 
 
 
