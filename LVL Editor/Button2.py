@@ -19,7 +19,36 @@ class Button2():
         #position the top left corner of the rectangle at (x, y) 
         self.rect.topleft = (x, y) 
         #initialize the clicked status to False 
-        self.clicked = False 
+        self.clicked = False
+
+    #define to draw the button on the screen
+    def draw(self, surface): 
+
+        #initialize action to False
+        action = False
+
+        #get the current mouse position
+        pos = pygame.mouse.get_pos()  
+
+        #check if the mouse is over button
+        if self.rect.collidepoint(pos): 
+            #check if left mouse button is pressed and that it was not clicked before
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False: 
+                #if so, set action to True
+                action = True 
+                #and set clicked status to True
+                self.clicked = True 
+
+
+        #check if the left mouse button is not pressed        
+        if pygame.mouse.get_pressed()[0] == 0: 
+            #if so, set clicked status to False
+            self.clicked = False 
+        #draw the button image on the surface at its current position   
+        surface.blit(self.image, (self.rect.x, self.rect.y)) 
+        
+        #return whether an action/click happened
+        return action 
 
 
         
