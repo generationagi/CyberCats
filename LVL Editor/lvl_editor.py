@@ -1,13 +1,10 @@
 import pygame
 import pickle
-import button2
+import Button2
 from os import path
 
 
 pygame.init()
-
-
-
 
 
 #editor window size
@@ -91,12 +88,6 @@ def draw_bg():
         screen.blit(bg_image, (0, 0))
 
 
-
-
-
-
-
-
 #Tab name
 pygame.display.set_caption('lvl Editor')
 
@@ -123,8 +114,8 @@ def draw_world():
 
 #create buttons
 
-save_but = button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 50, save_pic, 1)
-load_but = button2.Button2(SCREEN_WIDTH // 2 + 200, SCREEN_HEIGHT + LOWER_MARGIN - 50, load_pic, 1)
+save_but = Button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 50, save_pic, 1)
+load_but = Button2.Button2(SCREEN_WIDTH // 2 + 200, SCREEN_HEIGHT + LOWER_MARGIN - 50, load_pic, 1)
 
 
 #button list
@@ -134,7 +125,7 @@ but_row = 0
 
 #create button from each image
 for i in range(len(pic_list)):
-        tile_button = button2.Button2(SCREEN_WIDTH + (75 * but_col) + 50, 75 * but_row + 50, pic_list[i],  1 )
+        tile_button = Button2.Button2(SCREEN_WIDTH + (75 * but_col) + 50, 75 * but_row + 50, pic_list[i],  1 )
         but_list.append(tile_button)
         #as button is created, button gets shifted along
         but_col += 1
@@ -213,11 +204,6 @@ while run:
                                 world_data[y][x] = SELECTED_TILE
                 if pygame.mouse.get_pressed()[2] == 1:
                         world_data[y][x] = -1
-
-
-
-
-
 
 
         for event in pygame.event.get():

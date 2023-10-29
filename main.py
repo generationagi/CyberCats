@@ -34,6 +34,8 @@ red = (255, 0, 0)
 bg_img = pygame.image.load('img/sky1.png')
 logo_img = pygame.image.load('img/logo.png')
 dirt_img = pygame.image.load('img/block.png')
+game_over_img = pygame.image.load('img/game_over.png')
+
 
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
@@ -105,6 +107,7 @@ while run:
         screen.blit(logo_img, (screen_width // 2 - logo_img.get_width() // 2, screen_height // 4 - logo_img.get_height() // 2))
         start_button.draw(screen)
         quit_button.draw(screen)
+        
     
     if player.game_state == 1:
         draw(screen)
@@ -151,6 +154,8 @@ while run:
         player.update()
         player.draw(screen)
         screen.blit(logo_img, (screen_width // 2 - logo_img.get_width() // 2, screen_height // 4 - logo_img.get_height() // 2))
+        screen.blit(game_over_img, (screen_width // 2 - game_over_img.get_width() // 2, screen_height // 2 - game_over_img.get_height() // 2))
+        
         if start_button.draw(screen):
             reset_game()
         start_button.draw(screen)

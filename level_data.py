@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
+
 level = 1
-=======
->>>>>>> Stashed changes
 
 world_data = [
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 8, 8], 
