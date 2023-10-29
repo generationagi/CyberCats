@@ -23,6 +23,7 @@ ROWS = 16
 
 COLUMS = 20
 
+TILE_TYPE = 9
 
 TILE_SIZE = SCREEN_HEIGHT // ROWS
 
@@ -33,14 +34,19 @@ WHITE = (255, 255, 255)
 #load images
 
 bg_image = pygame.image.load('pictures/bg_img.png').convert_alpha()
+#resize of background
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH , SCREEN_HEIGHT))
+#list of tiles, loads all images as they are numbered
+til_list = []
+for x in range(TILE_TYPE):
+        til = pygame.image.load(f'pictures2/editor objects/{x}.png')
+        #resize of tiles
+        til = pygame.transform.scale(til, (TILE_SIZE, TILE_SIZE))
+        til_list.append(til)
+        
 
-#list that stores tiles nr list 
-pic_list = []
-for x in range(TILE_NR):
-        pic = pygame.load.image(f'pictures3/{x}.png')
-        pic = pygame.transform.scale(pic , (TILE_SIZE, TILE_SIZE))
-        pic_list.append(pic)
+
+
 #function to draw BG
 
 def draw_bg():
