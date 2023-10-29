@@ -45,7 +45,7 @@ YELLOW = (255,255,0)
 
 
 #define font to be used
-font = pygame.font.SysFont('Comic Sans', 35)
+font = pygame.font.SysFont('Comic Sans', 20)
 
 #making empty tile list
 
@@ -86,6 +86,7 @@ load_pic = pygame.image.load('menu buttons/load.png').convert_alpha()
 #function to draw BG
 
 def draw_bg():
+        screen.fill(PURPLE)
         screen.blit(bg_image, (0, 0))
 
 
@@ -143,12 +144,17 @@ for i in range(len(pic_list)):
 
 run = True
 while run:
-        
+
+
+      
+
+
         draw_bg()
         draw_grid()
         draw_world()
 
         draw_txt(f'Level: {level}', font, YELLOW, 10, SCREEN_HEIGHT + LOWER_MARGIN - 90)
+        draw_txt('To change LVL press up or down.', font, YELLOW, 10, SCREEN_HEIGHT + LOWER_MARGIN - 60)
 
 
 
@@ -198,6 +204,15 @@ while run:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         run = False
+
+
+                #keyboard input
+                if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_UP:
+                                level += 1
+                        #to not get in negative lvl number we subtract only if higher than 0
+                        if event.key == pygame.K_DOWN and level > 0:
+                                level -= 1
 
         pygame.display.update()
         
