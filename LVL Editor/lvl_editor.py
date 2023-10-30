@@ -1,6 +1,6 @@
 import pygame
 import pickle
-import Button2
+import button2
 from os import path
 
 
@@ -114,8 +114,8 @@ def draw_world():
 
 #create buttons
 
-save_but = Button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 50, save_pic, 1)
-load_but = Button2.Button2(SCREEN_WIDTH // 2 + 200, SCREEN_HEIGHT + LOWER_MARGIN - 50, load_pic, 1)
+save_but = button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 50, save_pic, 1)
+load_but = button2.Button2(SCREEN_WIDTH // 2 + 200, SCREEN_HEIGHT + LOWER_MARGIN - 50, load_pic, 1)
 
 
 #button list
@@ -125,7 +125,7 @@ but_row = 0
 
 #create button from each image
 for i in range(len(pic_list)):
-        tile_button = Button2.Button2(SCREEN_WIDTH + (75 * but_col) + 50, 75 * but_row + 50, pic_list[i],  1 )
+        tile_button = button2.Button2(SCREEN_WIDTH + (75 * but_col) + 50, 75 * but_row + 50, pic_list[i],  1 )
         but_list.append(tile_button)
         #as button is created, button gets shifted along
         but_col += 1
