@@ -78,8 +78,8 @@ for x in range(TILE_NR):
 
 #save & load images
 
-save_pic = pygame.image.load('menu buttons/save.png').convert_alpha()
-load_pic = pygame.image.load('menu buttons/load.png').convert_alpha()
+save_pic = pygame.image.load('img/save.png').convert_alpha()
+load_pic = pygame.image.load('img/load.png').convert_alpha()
 
 #function to draw BG
 
@@ -114,8 +114,8 @@ def draw_world():
 
 #create buttons
 
-save_but = button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 50, save_pic, 1)
-load_but = button2.Button2(SCREEN_WIDTH // 2 + 200, SCREEN_HEIGHT + LOWER_MARGIN - 50, load_pic, 1)
+save_but = button2.Button2(SCREEN_WIDTH // 2, SCREEN_HEIGHT + LOWER_MARGIN - 80, save_pic, 1)
+load_but = button2.Button2(SCREEN_WIDTH // 2 + 250, SCREEN_HEIGHT + LOWER_MARGIN - 80, load_pic, 1)
 
 
 #button list
