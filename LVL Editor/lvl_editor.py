@@ -66,7 +66,7 @@ def draw_txt(text, font, text_col, x, y):
 
 #load images
 
-bg_image = pygame.image.load('pictures3/bg_img.png').convert_alpha()
+bg_image = pygame.image.load('img/sky1.png').convert_alpha()
 bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH , SCREEN_HEIGHT))
 
 #list that stores tiles nr list 
