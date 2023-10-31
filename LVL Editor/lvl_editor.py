@@ -54,7 +54,7 @@ for row in range(ROWS):
 
 #adding ground as editor starts
 for tile in range(0, COLUMS):
-	world_data[ROWS - 1][tile] = 0
+	world_data[ROWS - 1][tile] = 1
 
 
 

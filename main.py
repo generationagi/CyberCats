@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 fps = 60
 
 screen_width = 800
-screen_height = 800
+screen_height = 642
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Cyber Cats')
