@@ -72,7 +72,7 @@ bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH , SCREEN_HEIGHT))
 #list that stores tiles nr list 
 pic_list = []
 for x in range(TILE_NR):
-        pic = pygame.image.load(f'pictures3/{x}.png').convert_alpha()
+        pic = pygame.image.load(f'LVL Editor/editor img/{x}.png').convert_alpha()
         pic = pygame.transform.scale(pic , (TILE_SIZE, TILE_SIZE))
         pic_list.append(pic)
 
