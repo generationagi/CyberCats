@@ -47,6 +47,25 @@ class Player:
     def lava_collision(self, lava_group):
         if pygame.sprite.spritecollide(self, self.lava_group, False):
             self.game_state = -1
+            
+    def update_tile_list(self, new_tile_data, tile_size):
+        self.world.tile_list = []  # Clear the old tile_list
+        for row in range(len(new_tile_data)):
+            for col in range(len(new_tile_data[row])):
+                tile = new_tile_data[row][col]
+                if tile in (1, 2):  # Handle dirt and grass tiles
+                    # Get the corresponding images from the World class
+                    img, img_rect = (self.world.dirt_img, self.world.dirt_img.get_rect()) if tile == 1 else (self.world.grass_img, self.world.grass_img.get_rect())
+                    # Recreate a new image rectangle
+                    img_rect = img_rect.move(col * tile_size, row * tile_size)
+                    self.world.tile_list.append((img, img_rect))
+                        # Handle other tile types here...
+                else:
+                    continue
+                
+                # Recreate a new image rectangle
+                img_rect = img_rect.move(col * tile_size, row * tile_size)
+                self.world.tile_list.append((img, img_rect))
     
     def update(self):
         dx = 0
@@ -56,6 +75,7 @@ class Player:
         self.blob_collision(self.blob_group)
         self.lava_collision(self.lava_group)
         self.standing = False
+    
         
 
         if self.game_state == 1:
