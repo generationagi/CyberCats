@@ -1,6 +1,6 @@
 import pygame
 
-class Platform(pygame.sprite.Sprite):
+class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y, tile_list):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('img/slime.png')
@@ -14,7 +14,7 @@ class Platform(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.move_direction
         self.move_counter += 1
-        if abs(self.move_counter) > 50:
+        if abs(self.move_counter) > 100:
             #Flips movement
             self.move_direction *= -1
             self.move_counter *= -1

@@ -117,6 +117,8 @@ while run:
         world.lava_group.update()
         world.lava_group.draw(screen)
         world.blob_group.update()
+        world.platform_group.draw(screen)
+        world.platform_group.update()
         player.update()
         player.draw(screen)
         score = 0  # Reset the score
