@@ -7,6 +7,7 @@ from os import path
 pygame.init()
 
 
+
 #editor window size
 SCREEN_HEIGHT = 640
 SCREEN_WIDTH = 800
@@ -24,7 +25,7 @@ COLUMS = 20
 
 TILE_SIZE = SCREEN_HEIGHT // ROWS
 
-TILE_NR = 8
+TILE_NR = 9
 
 SELECTED_TILE = 0
 
@@ -54,7 +55,7 @@ for row in range(ROWS):
 
 #adding ground as editor starts
 for tile in range(0, COLUMS):
-	world_data[ROWS - 1][tile] = 0
+	world_data[ROWS - 1][tile] = 1
 
 
 
@@ -72,7 +73,7 @@ bg_image = pygame.transform.scale(bg_image, (SCREEN_WIDTH , SCREEN_HEIGHT))
 #list that stores tiles nr list 
 pic_list = []
 for x in range(TILE_NR):
-        pic = pygame.image.load(f'pictures3/{x}.png').convert_alpha()
+        pic = pygame.image.load(f'LVL Editor/editor img/{x}.png').convert_alpha()
         pic = pygame.transform.scale(pic , (TILE_SIZE, TILE_SIZE))
         pic_list.append(pic)
 

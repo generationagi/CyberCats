@@ -1,6 +1,7 @@
 import pygame
 
 
+
 #Defineing of second button class
 class Button2():
     #initiating position (x,y), image and a scale factor

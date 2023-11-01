@@ -74,7 +74,6 @@ def draw(screen):
         
 def draw_all():
     draw(screen)
-    player.update()
     world.blob_group.draw(screen)
     world.exit_group.update()
     world.exit_group.draw(screen)
@@ -87,6 +86,7 @@ def draw_all():
     world.mushroom_group.draw(screen)
     world.mushroom_group.update()
     player.draw(screen)
+
   
 
 
@@ -139,8 +139,10 @@ while run:
     
     if player.game_state == 1:
         draw_all()
+        if pygame.sprite.spritecollide(player, world.mushroom_group, True):
+            score += 1
         if pygame.sprite.spritecollide(player, world.exit_group, True):
-            player.game_state += 1
+            player.game_state == 1
             print(player.game_state)
         
 
