@@ -12,9 +12,6 @@ from level_data import world_data
 class World():
     screen = pygame.display.set_mode((800, 800))
     pygame.display.set_caption('Cyber Cats')
-    #Load images
-    grass_img = pygame.image.load('img/top_block.png')
-    dirt_img = pygame.image.load('img/block.png')
     
     def __init__(self, data, tile_size):
         self.tile_list = []
@@ -24,7 +21,9 @@ class World():
         self.blob_group = pygame.sprite.Group()
         self.platform_group = pygame.sprite.Group()
 
-
+        #Load images
+        grass_img = pygame.image.load('img/top_block.png')
+        dirt_img = pygame.image.load('img/block.png')
 
 
         row_count = 0
@@ -32,14 +31,14 @@ class World():
             col_count = 0
             for tile in row:
                 if tile == 1:
-                    img = pygame.transform.scale(self.dirt_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(dirt_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (img, img_rect)
                     self.tile_list.append(tile)
                 if tile == 2:
-                    img = pygame.transform.scale(self.grass_img, (tile_size, tile_size))
+                    img = pygame.transform.scale(grass_img, (tile_size, tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * tile_size
                     img_rect.y = row_count * tile_size
