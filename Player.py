@@ -25,7 +25,7 @@ class Player:
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.width = self.image.get_width() - 5
+        self.width = self.image.get_width() - 9
         print(self.width)
         self.height = self.image.get_height()
         self.vel_y = 0
@@ -34,6 +34,8 @@ class Player:
         self.screen_height = screen_height
         self.hitbox = pygame.Rect(x, y, self.width, self.height)
         self.score = 0
+        self.jump_fx = pygame.mixer.Sound('sound/jump.wav')
+        self.jump_fx.set_volume(0.5)
 
     def set_world(self, world):
         self.world = world
@@ -74,6 +76,8 @@ class Player:
                 self.jumped = False   
             if key[pygame.K_SPACE] and not self.jumped:
                 self.vel_y = -15
+                pygame.mixer.music.load('sound/jump.wav')
+                pygame.mixer.music.play(0, -0.5, 150)
                 self.jumped = True
                 self.jump = False
                 #pygame.mixer.music.load(self.jump_fx)

@@ -12,9 +12,10 @@ class Enemy(pygame.sprite.Sprite):
         self.tile_list = tile_list
     
     def update(self):
-        self.rect.x += self.move_direction
-        self.move_counter += 1
+        self.rect.x += (self.move_direction * 1.3)
+        self.move_counter += 2
         if abs(self.move_counter) > 100:
+            print(self.move_counter)
             #Flips movement
             self.move_direction *= -1
             self.move_counter *= -1

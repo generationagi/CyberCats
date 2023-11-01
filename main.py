@@ -43,7 +43,7 @@ def draw_text(text, font, text_col, x, y):
 
 #load sounds
 pygame.mixer.music.load('sound/music.mp3')
-pygame.mixer.music.play(-1, 0.0, 5000)
+pygame.mixer.music.play(1, 0.0, 5000)
 coin_fx = pygame.mixer.Sound('sound/mushroom.wav')
 coin_fx.set_volume(0.5)
 jump_fx = pygame.mixer.Sound('sound/jump.wav')
@@ -52,10 +52,10 @@ game_over_fx = pygame.mixer.Sound('sound/death.wav')
 game_over_fx.set_volume(0.5)
 
 def reset_game():
-    # Reset player's position
-    #player.rect.x = 100
-    #player.rect.y = screen_height - 130
-    pass
+    #Reset player's position
+    player.rect.x = 100
+    player.rect.y = screen_height - 130
+    
     
     
 def reload_tile_data():
@@ -74,6 +74,7 @@ def draw(screen):
         
 def draw_all():
     draw(screen)
+    player.update()
     world.blob_group.draw(screen)
     world.exit_group.update()
     world.exit_group.draw(screen)
@@ -86,7 +87,6 @@ def draw_all():
     world.mushroom_group.draw(screen)
     world.mushroom_group.update()
     player.draw(screen)
-
   
 
 
@@ -108,7 +108,7 @@ while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
     #print(player.game_state)
-    draw_text("X " + str(score), font_score, red, tile_size - 10, 10)
+    draw_text("X " + str(player.score), font_score, red, tile_size - 10, 10)
     #print(level, 'level')
     #if start_button.clicked:
         #print('bbbbb')
@@ -139,10 +139,8 @@ while run:
     
     if player.game_state == 1:
         draw_all()
-        if pygame.sprite.spritecollide(player, world.mushroom_group, True):
-            score += 1
         if pygame.sprite.spritecollide(player, world.exit_group, True):
-            player.game_state == 1
+            player.game_state += 1
             print(player.game_state)
         
 
@@ -171,6 +169,7 @@ while run:
         
         if start_button.draw(screen):
             reset_game()
+            player.game_state = 1
         start_button.draw(screen)
         quit_button.draw(screen)
         score = 0  # Reset the score
