@@ -24,8 +24,8 @@ font_score = pygame.font.SysFont("Bauhaus 93", 35)
 
 #define game variables
 tile_size = 40
-game_state = 0
 score = 0
+level_changed = False
 
 #define colours
 red = (255, 0, 0)
@@ -53,14 +53,20 @@ game_over_fx.set_volume(0.5)
 
 def reset_game():
     # Reset player's position
-    player.rect.x = 100
-    player.rect.y = screen_height - 130
-    player.game_state = 1 
+    #player.rect.x = 100
+    #player.rect.y = screen_height - 130
+    pass
+    
     
 def reload_tile_data():
-    #Clear the existing tile list
-    #world.tile_list.clear()
-    draw(screen)
+    pygame.sprite.Group.empty(world.lava_group)
+    pygame.sprite.Group.empty(world.exit_group)
+    pygame.sprite.Group.empty(world.mushroom_group)
+    pygame.sprite.Group.empty(world.blob_group)
+    pygame.sprite.Group.empty(player.lava_group)
+    pygame.sprite.Group.empty(player.exit_group)
+    pygame.sprite.Group.empty(player.mushroom_group)
+    pygame.sprite.Group.empty(player.blob_group)
 
 def draw(screen):
     for tile in world.tile_list:
@@ -76,28 +82,33 @@ def draw_all():
     world.blob_group.update()
     world.platform_group.draw(screen)
     world.platform_group.update()
-    player.update()
-    player.draw(screen)
     score = 0  # Reset the score
     world.mushroom_group.draw(screen)
     world.mushroom_group.update()
+    player.draw(screen)
+
   
+
 
 start_button = Button(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
 quit_button = Button(screen_width // 2 + 100, screen_height // 16, 'img/quit.png')
 
 world = World(world_data, tile_size)
 
+game_state = 0
 player = Player(100, screen_height - 130, screen_height, game_state)
-player.set_groups(world.blob_group, world.lava_group, world.exit_group)
+player.set_groups(world.blob_group, world.lava_group, world.exit_group, world.mushroom_group)
 player.set_world(world)
+game_state = player.game_state
+score = player.score
 player.game_state = 0
 
 run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
-    #print(game_state)
+    #print(player.game_state)
+    draw_text("X " + str(score), font_score, red, tile_size - 10, 10)
     #print(level, 'level')
     #if start_button.clicked:
         #print('bbbbb')
@@ -114,6 +125,7 @@ while run:
                 if start_button.rect.collidepoint(event.pos):
                     #print('aaaa')
                     reset_game()
+                    player.game_state = 1
                     draw(screen)   
                 if quit_button.rect.collidepoint(event.pos):
                     run = False
@@ -133,16 +145,21 @@ while run:
             player.game_state == 1
             print(player.game_state)
         
-        draw_text("X " + str(score), font_score, red, tile_size - 10, 10)
 
     if player.game_state == 2:
-        world.tile_list.clear()
-        #Redo world init with data replaced by next level
-        world.__init__(world2_data, tile_size)
+        if level_changed == False:
+            world.tile_list.clear()
+            print(world.tile_list, 'empty hop')
+            #Redo world init with data replaced by next level
+            world.__init__(world2_data, tile_size)
+            print(world.tile_list)
+            player.set_world(world)
+            level_changed = True
+            player.set_groups(world.blob_group, world.lava_group, world.exit_group, world.mushroom_group)
+           
         draw_all()
-        reset_game()
         if pygame.sprite.spritecollide(player, world.exit_group, True):
-            player.game_state == 2
+            player.game_state == 3
             print(player.game_state)
         
     if player.game_state == -1:

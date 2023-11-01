@@ -16,6 +16,8 @@ class Player:
             pygame.transform.scale(pygame.image.load('img/cat7.png'), (40, 80)),
             pygame.transform.scale(pygame.image.load('img/cat8.png'), (40, 80))
         ]
+        self.jump_fx = pygame.mixer.Sound('sound/jump.wav')
+        self.jump_fx.set_volume(0.5)
         self.death_image = pygame.image.load('img/death.png')
         self.counter = 0
         self.index = 0
@@ -31,14 +33,16 @@ class Player:
         self.jump = True
         self.screen_height = screen_height
         self.hitbox = pygame.Rect(x, y, self.width, self.height)
+        self.score = 0
 
     def set_world(self, world):
         self.world = world
 
-    def set_groups(self, blob_group, lava_group, exit_group):
+    def set_groups(self, blob_group, lava_group, exit_group, mushroom_group):
         self.blob_group = blob_group
         self.lava_group = lava_group
         self.exit_group = exit_group
+        self.mushroom_group = mushroom_group
 
     def blob_collision(self, blob_group):
         if pygame.sprite.spritecollide(self, self.blob_group, False):
@@ -47,18 +51,23 @@ class Player:
     def lava_collision(self, lava_group):
         if pygame.sprite.spritecollide(self, self.lava_group, False):
             self.game_state = -1
+            
+    def mush_collision(self, mushroom_group):  
+        if pygame.sprite.spritecollide(self, self.mushroom_group, True):
+                self.score += 1
+    
     
     def update(self):
         dx = 0
         dy = 0
         #Animation cd (higher = slower)
         walk_cd = 10
-        self.blob_collision(self.blob_group)
-        self.lava_collision(self.lava_group)
         self.standing = False
-        
+        self.lava_collision(self.lava_group)
+        self.blob_collision(self.blob_group)
+        self.mush_collision(self.mushroom_group)
 
-        if self.game_state == 1:
+        if self.game_state >= 1:
             # Get keypresses
             key = pygame.key.get_pressed()
             if self.jump == True:
@@ -67,6 +76,7 @@ class Player:
                 self.vel_y = -15
                 self.jumped = True
                 self.jump = False
+                #pygame.mixer.music.load(self.jump_fx)
 
             if key[pygame.K_LEFT]:
                 #Left walk speed
