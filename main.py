@@ -65,6 +65,22 @@ def reload_tile_data():
 def draw(screen):
     for tile in world.tile_list:
         screen.blit(tile[0], tile[1])
+        
+def draw_all():
+    draw(screen)
+    world.blob_group.draw(screen)
+    world.exit_group.update()
+    world.exit_group.draw(screen)
+    world.lava_group.update()
+    world.lava_group.draw(screen)
+    world.blob_group.update()
+    world.platform_group.draw(screen)
+    world.platform_group.update()
+    player.update()
+    player.draw(screen)
+    score = 0  # Reset the score
+    world.mushroom_group.draw(screen)
+    world.mushroom_group.update()
   
 
 start_button = Button(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
@@ -110,46 +126,24 @@ while run:
         
     
     if player.game_state == 1:
-        draw(screen)
-        world.blob_group.draw(screen)
-        world.exit_group.update()
-        world.exit_group.draw(screen)
-        world.lava_group.update()
-        world.lava_group.draw(screen)
-        world.blob_group.update()
-        world.platform_group.draw(screen)
-        world.platform_group.update()
-        player.update()
-        player.draw(screen)
-        score = 0  # Reset the score
-        world.mushroom_group.draw(screen)
-        world.mushroom_group.update()
-        
+        draw_all()
         if pygame.sprite.spritecollide(player, world.mushroom_group, True):
             score += 1
         if pygame.sprite.spritecollide(player, world.exit_group, True):
-            player.game_state += 1
+            player.game_state == 1
             print(player.game_state)
         
         draw_text("X " + str(score), font_score, red, tile_size - 10, 10)
 
     if player.game_state == 2:
         world.tile_list.clear()
+        #Redo world init with data replaced by next level
         world.__init__(world2_data, tile_size)
-        #print(world.tile_list)
-        #draw(screen)
-        world.blob_group.draw(screen)
-        world.exit_group.update()
-        world.exit_group.draw(screen)
-        world.lava_group.update()
-        world.lava_group.draw(screen)
-        world.blob_group.update()
-        player.update()
-        player.draw(screen)
-        world.mushroom_group.draw(screen)
-        world.mushroom_group.update()
+        draw_all()
         reset_game()
-      
+        if pygame.sprite.spritecollide(player, world.exit_group, True):
+            player.game_state == 2
+            print(player.game_state)
         
     if player.game_state == -1:
         player.image = player.death_image
