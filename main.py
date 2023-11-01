@@ -10,6 +10,7 @@ from Button import Button
 from level_data import *
 
 pygame.init()
+pygame.mixer.init()
 
 clock = pygame.time.Clock()
 fps = 60
@@ -42,12 +43,17 @@ def draw_text(text, font, text_col, x, y):
     screen.blit(img, (x,y))
 
 #load sounds
+
+pygame.mixer.set_num_channels(3) #setting separate channels so all sounds work seamlessly 
+
 pygame.mixer.music.load('sound/music.mp3')
 pygame.mixer.music.play(1, 0.0, 5000)
 coin_fx = pygame.mixer.Sound('sound/mushroom.wav')
 coin_fx.set_volume(0.5)
+coin_channel = pygame.mixer.Channel(0)
 jump_fx = pygame.mixer.Sound('sound/jump.wav')
 jump_fx.set_volume(0.5)
+jump_channel = pygame.mixer.Channel(1)
 game_over_fx = pygame.mixer.Sound('sound/death.wav')
 game_over_fx.set_volume(0.5)
 
