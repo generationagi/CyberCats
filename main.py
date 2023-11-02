@@ -9,9 +9,11 @@ from Exit import Exit
 from Button import Button
 from level_data import *
 
+# Initialize pygame
 pygame.init()
 pygame.mixer.init()
 
+# Set up the game window
 clock = pygame.time.Clock()
 fps = 60
 
@@ -37,33 +39,28 @@ logo_img = pygame.image.load('img/logo.png')
 dirt_img = pygame.image.load('img/block.png')
 game_over_img = pygame.image.load('img/game_over.png')
 
-
+# Function to draw text on the screen
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img, (x,y))
 
-#load sounds
-
-pygame.mixer.set_num_channels(3) #setting separate channels so all sounds work seamlessly 
-
+# Load background music
 pygame.mixer.music.load('sound/music.mp3')
 pygame.mixer.music.play(1, 0.0, 5000)
-coin_fx = pygame.mixer.Sound('sound/mushroom.wav')
-coin_fx.set_volume(0.5)
-coin_channel = pygame.mixer.Channel(0)
-jump_fx = pygame.mixer.Sound('sound/jump.wav')
-jump_fx.set_volume(0.5)
-jump_channel = pygame.mixer.Channel(1)
-game_over_fx = pygame.mixer.Sound('sound/death.wav')
-game_over_fx.set_volume(0.5)
+# Play the background music on loop
+pygame.mixer.music.play(-1)
 
+
+#game_over_fx = pygame.mixer.Sound('sound/death.wav')
+#game_over_fx.set_volume(0.5) 
+# #could not make it sound just once, it repeat in loop
+
+ #Reset player's position
 def reset_game():
-    #Reset player's position
     player.rect.x = 100
     player.rect.y = screen_height - 130
-    
-    
-    
+
+# Reload tile data function    
 def reload_tile_data():
     pygame.sprite.Group.empty(world.lava_group)
     pygame.sprite.Group.empty(world.exit_group)
@@ -77,7 +74,8 @@ def reload_tile_data():
 def draw(screen):
     for tile in world.tile_list:
         screen.blit(tile[0], tile[1])
-        
+ 
+# Function to draw all game elements   
 def draw_all():
     draw(screen)
     player.update()
@@ -95,12 +93,14 @@ def draw_all():
     player.draw(screen)
   
 
-
+# Initialize the game buttons
 start_button = Button(screen_width // 2 - 350, screen_height // 16, 'img/start.png')
 quit_button = Button(screen_width // 2 + 100, screen_height // 16, 'img/quit.png')
 
+# Initialize the game world
 world = World(world_data, tile_size)
 
+# Initialize the player object and set its groups and world
 game_state = 0
 player = Player(100, screen_height - 130, screen_height, game_state)
 player.set_groups(world.blob_group, world.lava_group, world.exit_group, world.mushroom_group)
@@ -109,20 +109,15 @@ game_state = player.game_state
 score = player.score
 player.game_state = 0
 
+# Main game loop
 run = True
 while run:
     clock.tick(fps)
     screen.blit(bg_img, (0, 0))
     #print(player.game_state)
     draw_text("X " + str(player.score), font_score, red, tile_size - 10, 10)
-    #print(level, 'level')
-    #if start_button.clicked:
-        #print('bbbbb')
-        #reset_game()
-        #draw(screen)  
-    #if quit_button.clicked:
-        #run = False
-
+    
+ # Handle game events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

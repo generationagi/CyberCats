@@ -18,6 +18,7 @@ class Player:
         ]
         self.jump_fx = pygame.mixer.Sound('sound/jump.wav')
         self.jump_fx.set_volume(0.5)
+
         self.death_image = pygame.image.load('img/death.png')
         self.counter = 0
         self.index = 0
@@ -36,6 +37,8 @@ class Player:
         self.score = 0
         self.jump_fx = pygame.mixer.Sound('sound/jump.wav')
         self.jump_fx.set_volume(0.5)
+
+    
 
     def set_world(self, world):
         self.world = world
@@ -76,8 +79,9 @@ class Player:
                 self.jumped = False   
             if key[pygame.K_SPACE] and not self.jumped:
                 self.vel_y = -15
-                pygame.mixer.music.load('sound/jump.wav')
-                pygame.mixer.music.play(0, -0.5, 150)
+                #self.exit_groupjump_fx.play()
+                '''pygame.mixer.Sound.load('sound/jump.wav')
+                pygame.mixer.Sound.play(2, -0.5, 150)'''
                 self.jumped = True
                 self.jump = False
                 #pygame.mixer.music.load(self.jump_fx)
